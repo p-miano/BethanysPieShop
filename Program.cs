@@ -1,15 +1,19 @@
 using BethanysPieShop.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args); // Loads the configuration from appsettings.json, includes Kestrel, sets up IIS integration and the wwwroot folder
 
 // This block of code adds the interfaces created in the Models folder to the dependency injection container. 
 #region
-builder.Services.AddScoped<ICategoryRepository, MockCategoryRepository>();
-builder.Services.AddScoped<IPieRepository, MockPieRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IPieRepository, PieRepository>();
 // Using AddScoped means that the same instance of the service is used throughout the request.Both the interface and the implementation are added to the dependency injection container.
 #endregion
-
 builder.Services.AddControllersWithViews(); // Adds MVC services to the services container
+builder.Services.AddDbContext<BethanysPieShopDbContext>(options => {
+    options.UseSqlServer(
+        builder.Configuration["ConnectionStrings:BethanysPieShopDbContextConnection"]);
+}); // Adds the DbContext to the services container
 
 var app = builder.Build(); // Builds the app
 
