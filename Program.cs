@@ -31,4 +31,6 @@ app.MapDefaultControllerRoute(); // Adds a default route to the app
 
 #endregion
 
+DbInitializer.Seed(app); // Seeds the database with data when the database is empty
+
 app.Run(); // Runs the app
