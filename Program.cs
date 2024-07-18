@@ -19,7 +19,6 @@ var app = builder.Build(); // Builds the app
 
 // This block of code sets up the request pipeline (middleware components)
 #region
-
 app.UseStaticFiles(); // For the wwwroot folder
 
 if (app.Environment.IsDevelopment()) // Checks if the environment is Development
