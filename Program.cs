@@ -26,11 +26,9 @@ if (app.Environment.IsDevelopment()) // Checks if the environment is Development
 {
     app.UseDeveloperExceptionPage(); // Shows detailed error information
 }
-
-app.MapDefaultControllerRoute(); // Adds a default route to the app
-
+app.MapDefaultControllerRoute(); // Adds a default route to the app {controller=Home}/{action=Index}/{id?}
 #endregion
 
-DbInitializer.Seed(app); // Seeds the database with data when the database is empty
+DbInitializer.Seed(app); // Seeds the database with data when the database is empty 
 
 app.Run(); // Runs the app
