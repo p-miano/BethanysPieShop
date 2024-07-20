@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Bethany's Pie Shop</title>
     <link href='https://fonts.googleapis.com/css?family=Work+Sans' rel='stylesheet' type='text/css'>
-    <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     <base href="/" />
 </head>
@@ -28,7 +27,9 @@
 
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <!-- This next line is the SHOP drop down menu. -->
                             <vc:category-menu></vc:category-menu>
+                            <!-- This next line is the CONTACT view link. -->
                             <li class="nav-item">
                                 <a asp-controller="Contact" asp-action="Index" class="nav-link">Contact</a>
                             </li>
@@ -41,5 +42,8 @@
 
         @RenderBody()
     </div>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/popper.js/umd/popper.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
