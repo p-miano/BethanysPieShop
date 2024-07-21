@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews(); // Adds MVC services to the services
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPieRepository, PieRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 // Using AddScoped means that the same instance of the service is used throughout the request.Both the interface and the implementation are added to the dependency injection container.
 
 builder.Services.AddScoped<IShoppingCart, ShoppingCart>(sp => ShoppingCart.GetCart(sp)); // Adds the ShoppingCart service to the dependency injection container
