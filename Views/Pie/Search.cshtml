@@ -1,7 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Search";
-    Layout = "~/Views/Shared/_Layout.cshtml"; // Ensure the layout is referenced correctly
-}
+﻿<script src="~/lib/jquery/jquery.min.js"></script>
 
 <div class="my-5">
     <h3 class="mb-4">Enter your search query:</h3>
@@ -14,35 +11,30 @@
 </table>
 
 <script type="text/javascript">
+
     $(document).ready(function () {
-        $("#searchButton").click(function () {
+        $("button").click(function () {
             var searchQuery = $.trim($("#txtPieName").val());
-            if (searchQuery) { // Ensure search query is not empty
-                $("table tbody").html("");
-                $.ajax({
-                    type: "POST",
-                    url: "/api/Search",
-                    data: JSON.stringify(searchQuery), // Correctly format data as JSON
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (pies) {
-                        var table = $("#tblPies");
-                        table.find("tbody").empty(); // Clear previous results
-                        $.each(pies, function (i, pie) {
-                            var row = $("<tr>");
-                            row.append($("<td>").html('<img src="' + pie.imageThumbnailUrl + '" alt="Pie Image">'));
-                            row.append($("<td>").html('<a href="/pie/details/' + pie.pieId + '">' + pie.name + '</a>'));
-                            row.append($("<td>").html(pie.price));
-                            table.find("tbody").append(row);
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error: ", xhr.responseText); // Improved error logging
-                    }
-                });
-            } else {
-                alert("Please enter a search query.");
-            }
+            $("tbody").html("");
+            $.ajax({
+                type: "POST",
+                url: "/api/Search",
+                data: "\"" + searchQuery + "\"",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (pies) {
+                    $.each(pies, function (i, pie) {
+                        $("tbody").append($("<tr>"));
+                        appendElement = $("tbody tr").last();
+                        appendElement.append($("<td>").html('<img src=' + pie.imageThumbnailUrl + '>'));
+                        appendElement.append($("<td>").html('<a href="/pie/details/' + pie.pieId + '">' + pie.name + '</a>'));
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr)
+                }
+            });
         });
     });
+
 </script>
