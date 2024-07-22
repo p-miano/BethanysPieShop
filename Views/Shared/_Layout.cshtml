@@ -49,12 +49,16 @@
             </nav>
         </header>
 
-        @RenderBody()
+        @RenderBody() 
+        
+        <script src="~/lib/jquery/jquery.min.js" defer></script>
+        <script src="~/lib/popper.js/umd/popper.min.js" defer></script>
+        <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+        <script src="~/lib/jquery-validate/jquery.validate.js" defer></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" defer></script>
+        <script src="_framework/blazor.web.js"></script>
+
+        @RenderSection("Scripts", required: false)
     </div>
-    <script src="~/lib/jquery/jquery.min.js" defer></script>
-    <script src="~/lib/popper.js/umd/popper.min.js" defer></script>
-    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js" defer></script>
-    <script src="~/lib/jquery-validate/jquery.validate.js" defer></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" defer></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+using BethanysPieShop.App;
 using BethanysPieShop.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -24,6 +25,8 @@ builder.Services.AddControllersWithViews()
         }); // Adds MVC services to the services container (for controllers and views) and configures the JSON serializer to ignore cycles in the object graph to prevent stack overflow exceptions
 
 builder.Services.AddRazorPages(); // Adds Razor Pages services to the services container
+builder.Services.AddRazorComponents().AddInteractiveServerComponents(); // Adds Razor Components services to the services container, necesary for Blazor
+
 builder.Services.AddDbContext<BethanysPieShopDbContext>(options => {
     options.UseSqlServer(
         builder.Configuration["ConnectionStrings:BethanysPieShopDbContextConnection"]);
@@ -50,7 +53,11 @@ app.MapDefaultControllerRoute(); // Adds a default route to the app {controller=
 //    pattern: "{controller=Home}/{action=Index}/{id?}");
 // Not necessary, as MapDefaultControllerRoute() does the same thing
 
+app.UseAntiforgery(); // Adds antiforgery support to the app, to prevent cross-site request forgery attacks. It's mandatory when using Blazor
+
 app.MapRazorPages(); // Adds Razor Pages to the app
+
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode(); // Adds Razor Components to the app, necessary for Blazor
 
 //app.MapControllers(); // Adds controllers to the app (for API controllers). Not needed because MapDefaultControllerRoute() includes MapControllers(). Would be needed if dealing with API controllers only.
 #endregion
