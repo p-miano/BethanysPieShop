@@ -32,5 +32,10 @@ namespace BethanysPieShop.Models
         {
             return _bethanysPieShopDbContext.Pies.FirstOrDefault(p => p.PieId == pieId);
         } // This method returns a pie by its ID
+
+        public IEnumerable<Pie> SearchPies(string searchQuery)
+        {
+            return _bethanysPieShopDbContext.Pies.Where(p => p.Name.Contains(searchQuery));
+        }
     }
 }
