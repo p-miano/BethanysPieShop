@@ -1,5 +1,6 @@
 using BethanysPieShop.App;
 using BethanysPieShop.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -27,10 +28,16 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddRazorPages(); // Adds Razor Pages services to the services container
 builder.Services.AddRazorComponents().AddInteractiveServerComponents(); // Adds Razor Components services to the services container, necesary for Blazor
 
-builder.Services.AddDbContext<BethanysPieShopDbContext>(options => {
-    options.UseSqlServer(
-        builder.Configuration["ConnectionStrings:BethanysPieShopDbContextConnection"]);
-}); // Adds the DbContext to the services container
+builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BethanysPieShopDbContextConnection"))); // Adds the DbContext to the services container
+
+//builder.Services.AddDbContext<BethanysPieShopDbContext>(options => {
+//    options.UseSqlServer(
+//        builder.Configuration["ConnectionStrings:BethanysPieShopDbContextConnection"]);
+//}); // Adds the DbContext to the services container
+
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddEntityFrameworkStores<BethanysPieShopDbContext>(); // Adds Identity services to the services container
 
 //builder.Services.AddControllers(); // Adds controllers services to the services container (for API controllers). Not needed because AddControllersWithViews() includes AddControllers(). Would be needed if dealing with API controllers only.
 #endregion
@@ -46,6 +53,8 @@ if (app.Environment.IsDevelopment()) // Checks if the environment is Development
 
 app.UseStaticFiles(); // For the wwwroot folder
 app.UseSession(); // Adds session support to the app
+app.UseAuthentication(); // Adds authentication support to the app
+app.UseAuthorization(); // Adds authorization support to the app
 
 app.MapDefaultControllerRoute(); // Adds a default route to the app {controller=Home}/{action=Index}/{id?}
 //app.MapControllerRoute(
